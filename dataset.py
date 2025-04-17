@@ -1,18 +1,17 @@
-import torch
-import torch.nn as nn
-import numpy as np
-from tqdm import tqdm
-
 with open("input.txt", "r", encoding="utf-8") as f:
     text = f.read()
 
-chars = sorted(list(set(text)))
-vocab_size = len(chars)
+words = text.split()  # простейшая токенизация по пробелам
+vocab = sorted(set(words))
+vocab_size = len(vocab)
 
-stoi = {ch:i for i,ch in enumerate(chars)}
-itos = {i:ch for ch,i in stoi.items()}
+stoi = {word: i for i, word in enumerate(vocab)}
+itos = {i: word for word, i in stoi.items()}
 
-def encode(s): return [stoi[c] for c in s]
-def decode(l): return ''.join([itos[i] for i in l])
+def encode(words):
+    return [stoi[word] for word in words]
 
-data = torch.tensor(encode(text), dtype=torch.long)
+def decode(indices):
+    return ' '.join([itos[i] for i in indices])
+
+data = torch.tensor(encode(words), dtype=torch.long)

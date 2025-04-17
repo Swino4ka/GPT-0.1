@@ -1,18 +1,26 @@
+from model import WordRNN
+from dataset import stoi, itos, encode, vocab_size
 import torch
-from dataset import itos
-from dataset import encode
-def generate(model, start_text, length=100):
-    model.eval()
-    input_seq = torch.tensor(encode(start_text), dtype=torch.long).unsqueeze(0)
+
+model = WordRNN(vocab_size)
+model.load_state_dict(torch.load("word_model.pth"))
+model.eval()
+
+def generate(model, start_text, length=50):
+    words = start_text.split()
+    input_seq = torch.tensor([stoi[w] for w in words if w in stoi]).unsqueeze(0)
     hidden = None
-    output_text = start_text
+    output = words[:]
 
     with torch.no_grad():
         for _ in range(length):
             logits, hidden = model(input_seq, hidden)
             probs = torch.softmax(logits[0, -1], dim=0)
-            next_char_idx = torch.multinomial(probs, num_samples=1).item()
-            next_char = itos[next_char_idx]
-            output_text += next_char
-            input_seq = torch.tensor([[next_char_idx]])
-    return output_text
+            next_word_idx = torch.multinomial(probs, 1).item()
+            next_word = itos[next_word_idx]
+            output.append(next_word)
+            input_seq = torch.tensor([[next_word_idx]])
+    return ' '.join(output)
+
+if __name__ == "__main__":
+    print(generate(model, "Привет как дела", length=30))
