@@ -1,3 +1,8 @@
+from model import CharRNN
+from dataset import data, vocab_size
+import torch
+import torch.nn as nn
+
 model = CharRNN(vocab_size)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
 loss_fn = nn.CrossEntropyLoss()

@@ -1,3 +1,5 @@
+import torch.nn as nn
+
 class CharRNN(nn.Module):
     def __init__(self, vocab_size, hidden_size=128):
         super().__init__()
