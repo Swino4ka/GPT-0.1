@@ -8,7 +8,7 @@ model.eval()
 
 def generate(model, start_text, length=50):
     words = start_text.split()
-    input_seq = torch.tensor([stoi[w] for w in words if w in stoi]).unsqueeze(0)
+    input_seq = torch.tensor([stoi[w] for w in words if w in stoi], dtype=torch.long).unsqueeze(0)
     hidden = None
     output = words[:]
 
@@ -23,4 +23,4 @@ def generate(model, start_text, length=50):
     return ' '.join(output)
 
 if __name__ == "__main__":
-    print(generate(model, "Привет как дела", length=30))
+    print(generate(model, "По сути, ", length=30))
