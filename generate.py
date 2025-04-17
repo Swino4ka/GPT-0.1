@@ -1,5 +1,5 @@
 from model import WordRNN
-from dataset import stoi, itos, encode, vocab_size
+from dataset import stoi, itos, vocab_size
 import torch
 
 model = WordRNN(vocab_size)
