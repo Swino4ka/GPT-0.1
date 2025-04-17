@@ -3,15 +3,12 @@ import torch.nn as nn
 import numpy as np
 from tqdm import tqdm
 
-# Загрузка текста
 with open("input.txt", "r", encoding="utf-8") as f:
     text = f.read()
 
-# Символьная токенизация
 chars = sorted(list(set(text)))
 vocab_size = len(chars)
 
-# Создаем отображения символов в числа и обратно
 stoi = {ch:i for i,ch in enumerate(chars)}
 itos = {i:ch for ch,i in stoi.items()}
 
