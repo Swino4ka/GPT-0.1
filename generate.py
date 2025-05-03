@@ -23,4 +23,4 @@ def generate(model, start_text, length=50):
     return ' '.join(output)
 
 if __name__ == "__main__":
-    print(generate(model, "Привет! ", length=30))
+    print(generate(model, "Hello! ", length=30))
