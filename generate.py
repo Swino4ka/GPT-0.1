@@ -24,3 +24,4 @@ def generate(model, start_text, length=50):
 
 if __name__ == "__main__":
     print(generate(model, "Hello! ", length=30))
+    input("Press Enter to exit...")
